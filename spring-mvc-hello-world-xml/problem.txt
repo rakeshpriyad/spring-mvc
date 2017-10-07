@@ -1,0 +1,525 @@
+20 Software Scalability Questions & Answers for Architect Interview
+2  Architecture, Interview, Tips  7/22/2013 A+A-EMAILPRINT
+Web Application Scalability Questions and Answers for Software ArchitectWeb applications scalability is a common problem most of the web architect face. Any internet facing web application may require to be highly scalable due to heavy load of traffic. Now a days, developing a smart web application is much more than creating dynamic Web pages. Irrespective of programming languages like Java, PHP, .NET, Python, Ruby or others, these challenges are faced by software architects everyday.
+
+As the web is growing, our need of building larger and more scalable applications is also becoming more important. 
+
+In this decade, lot of distributed web applications are being developed that can utilize the resources from multiple machines, by separating the application functionality into manageable group of tasks that can be deployed in a distribute systems. There are numerous benefits to dividing applications this way, some of the most important are re-usability, scalability, and manageability.
+
+In this article, I am trying to cover all the scalability interview questions you may be asked when you are looking for a web application software architect job. This list will also make a foundation for java architect interview questions or any other programming language agnostic software architect interview questions. 
+
+If you are aspiring to become an architect then you must also check some of the best books available for software architects
+
+Java Interview Preparation Tips
+
+Part 0: Things You Must Know For a Java Interview
+Part 1: Important Tips To Learn Java (For Beginners)
+Part 2: Core Java Interview Questions
+Part 3: JDBC Interview Questions
+Part 4: Collections Framework Interview Questions
+Part 5: Threading Interview Questions
+Part 6: Serialization Interview Questions
+Part 7: Classpath Related Questions
+Part 8: Java Architect Scalability Questions
+Part 9: Download Free Software Interview Preparation eBook
+Part 10: Best Books For Tech Interview at Top Companies
+What Do You Mean By High Availability?
+
+Having better service capacity with high availability and low latency is mission critical for almost all businesses.
+
+Availability means the ability of the application user to access the system, If a user cannot access the application, it is assumed unavailable. High Availability means the application will be available, without interruption.
+
+Achieving high availability for a application is not always a easy task. Using redundant server nodes with clustering is a common way to achieve higher level of availability in web applications. 
+
+Availability is commonly expressed as a percentage of uptime in a given year.
+
+What Is Scalability?
+
+Scalability is the ability of a system, network, or process to handle a growing amount of load by adding more resources. The adding of resource can be done in two ways
+
+Scaling Up
+This involves adding more resources to the existing nodes. For example, adding more RAM, Storage or processing power.
+Scaling Out
+This involves adding more nodes to support more users.
+Any of the approaches can be used for scaling up/out a application, however the cost of adding resources (per user) may change as the volume increases. If we add resources to the system It should increase the ability of application to take more load in a proportional manner of added resources.
+
+An ideal application should be able to serve high level of load in less resources. However, in practical, linearly scalable system may be the best option achievable. 
+
+Poorly designed applications may have really high cost on scaling up/out since it will require more resources/user as the load increases.
+
+
+
+
+What Is A Cluster?
+
+A cluster is group of computer machines that can individually run a software. Clusters are typically utilized to achieve high availability for a server software. 
+
+Clustering is used in many types of servers for high availability.
+App Server Cluster
+An app server cluster is group of machines that can run a application server that can be reliably utilized with a minimum of down-time.
+Database Server Cluster
+An database server cluster is group of machines that can run a database server that can be reliably utilized with a minimum of down-time.
+
+
+Why Do You Need Clustering?
+
+Clustering is needed for achieving high availability for a server software. The main purpose of clustering is to achieve 100% availability or a zero down time in service. 
+
+A typical server software can be running on one computer machine and it can serve as long as there is no hardware failure or some other failure.
+
+By creating a cluster of more than one machine, we can reduce the chances of our service going un-available in case one of the machine fails.
+
+Doing clustering does not always guarantee that service will be 100% available since there can still be a chance that all the machine in a cluster fail at the same time. However it in not very likely in case you have many machines and they are located at different location or supported by their own resources.
+
+What Is Middle Tier Clustering?
+
+Middle tier clustering is just a cluster that is used for service the middle tier in a application. This is popular since many clients may be using middle tier and a lot of heavy load may also be served by middle tier that requires it be to highly available.
+
+Failure of middle tier can cause multiple clients and systems to fail, therefore its one of the approaches to do clustering at the middle tier of a application.
+
+In java world, it is really common to have EJB server clusters that are used by many clients. In general any application that has a business logic that can be shared across multiple client can use a middle tier cluster for high availability.
+
+
+What Is Load Balancing?
+
+Load balancing is simple technique for distributing workloads across multiple machines or clusters. 
+The most common and simple load balancing algorithm is Round Robin. In this type of load balancing the request is divided in circular order ensuring all machines get equal number of requests and no single machine is overloaded or underloaded. 
+
+The Purpose of load balancing is to
+
+Optimize resource usage (Avoid overload and under-load of any machines.)
+Achieve Maximum Throughput
+Minimize response time
+
+Most common load balancing techniques in web based applications are
+Round robin
+Session affinity or sticky session
+IP Address affinity
+
+
+
+
+What Is Sticky Session (session Affinity) Load Balancing? What Do You Mean By 'session Affinity'?
+
+Sticky session or a session affinity technique another popular load balancing technique that requires a user session to be always served by a allocated machine. 
+
+
+Why Sticky Session?
+
+In a load balanced server application where user information is stored in session it will be required to keep the session data available to all machines. This can be avoided by always serving a particular user session request from one machine.
+
+How It Is Done?
+
+The machine is associated with a session as soon as the session is created. All the requests in a particular session are always redirected to the associated machine. This ensures the user data is only at one machine and load is also shared.
+
+In Java world, this is typically done by using jsessionid cookie. The cookie is sent to the client for the first request and every subsequent request by client must be containing that same cookie to identify the session.
+
+What Are The Issues With Sticky Session?
+
+There are few issues that you may face with this approach
+
+The client browser may not support cookies, and your load balancer will not be able to identify if a request belongs to a session. This may cause strange behavior for the users who use no cookie based browsers.
+In case one of the machine fails or goes down, the user information (served by that machine) will be lost and there will be no way to recover user session.
+
+
+
+
+What Is IP Address Affinity Technique For Load Balancing?
+
+IP address affinity is another popular way to do load balancing. In this approach, the client IP address is associated with a server node. All requests from a client IP address are served by one server node.
+
+This approach can be really easy to implement since IP address is always available in a HTTP request header and no additional settings need to be performed.
+
+This type of load balancing can be useful if you clients are likely to have disabled cookies.
+
+However there is a down side of this approach. If many of your users are behind a NATed IP address then all of them will end up using the same server node. This may cause uneven load on your server nodes.
+
+NATed IP address is really common, in fact anytime you are browsing from a office network its likely that you and all your coworkers are using same NATed IP address.
+
+
+What Is Fail Over?
+
+Fail over means switching to another machine when one of the machine fails. 
+
+Fail over is a important technique in achieving high availability. Typically a load balancer is configured to fail over to another machine when the main machie fails. 
+
+To achieve least down time, most load balancer support a feature of heart beat check. This ensures that target machine is responding. As soon as a hear beat signal fails, load balancer stops sending request to that machine and redirects to other machines or cluster.
+
+
+What Is Session Replication?
+
+Session replication is used in application server clusters to achieve session failover. 
+A user session is replicated to other machines of a cluster, every time the session data changes.
+If a machine fails, the load balancer can simply send incoming requests to another server in the cluster.
+The user can be sent to any server in the cluster since all machines in a cluster have copy of the session.
+
+Session replication may allow your application to have session failover but it may require you to have extra cost in terms of memory and network bandwidth.
+
+
+What Does Distributable Tag Means In Web.xml ?
+
+
+In Java world, JEE applications use the concept of distributable web applications to provide session-failover and enable load balancing.
+
+You can set a JEE application to support session replication by adding distributable tag in web.xml file.
+<distributable />
+
+
+What Are The Requirements For Making A Java EE Application Session Replication Enabled?
+
+
+Setting distributable tag in web.xml just enables the application to support session replication, however it does not guarantee that your application will work fine in a session replicated environment. 
+
+JEE Application developer needs to make sure following things are taken care during web application development.
+
+All attributes/objects that are saved in HTTP Session are serializable. This means all your custom objects and child objects of that should be serializable.
+Making changes to any session attribute should be done using session.setAttribute() method. If you have reference to a java object that was previously set in session, you must call session.setAttribute() method every time you make any change to the object.
+
+
+
+
+What Are Different Mechanism Of Session Replication?
+
+Session replication between multiple cluster nodes can be done in many ways. The best approach may depend on the type of application. However there are few common methods used by application server vendors.
+
+
+Using session persistence, and saving the session to a shared file system (PersistenceManager + FileStore) . This will allow all machines in a cluster to be able to access the persisted session from the shared file system.
+Using session persistence, and saving the session to a shared database (PersistenceManager + JDBCStore) - This will allow all machines in a cluster to be able to access the persisted session from the shared database system.
+Using in-memory-replication, This will create a in memory copy of session in all the cluster nodes.
+
+
+
+What Is CAP Theorem?
+
+The CAP Theorem for distributed computing was published by Eric Brewer, This states that it is not possible for a distributed computer system to simultaneously provide all three of the following guarantees:
+
+Consistency (all nodes see the same data even at the same time with concurrent updates )
+Availability (a guarantee that every request receives a response about whether it was successful or failed)
+Partition tolerance (the system continues to operate despite arbitrary message loss or failure of part of the system)
+
+The CAP acronym corresponds to these 3 guarantees. This theorem has created the base for modern distributed computing approaches. 
+
+Worlds most high volume traffic companies (e.g. Amazon, Google, Facebook) use this as basis for deciding their application architecture. 
+
+Its important to understand that only two of these three conditions can be guaranteed to be met by a system.
+
+
+
+What Is Sharding?
+
+
+Sharding is a architectural approach that distributes a single logical database system into a cluster of machines.
+
+Sharding is Horizontal partitioning design scheme. In this database design rows of a database table are stored separately, instead of splitting into columns (like in normalization and vertical partitioning). Each partition is called as a shard, which can be independently located on a separate database server or physical location.
+
+Sharding makes a database system highly scalable. The total number of rows in each table in each database is reduced since the tables are divided and distributed into multiple servers. This reduces the index size, which generally means improved search performance.
+
+The most common approach for creating shards is by the use of consistent hashing of a unique id in application (e.g. user id). 
+
+The downsides of sharding are,
+
+It requires application to be aware of the data location.
+Any addition or deletion of nodes from system will require some rebalance to be done in the system.
+If you require lot of cross node join queries then your performance will be really bad. Therefore, knowing how the data will be used for querying becomes really important.
+A wrong sharding logic may result in worse performance. Therefore make sure you shard based on the application need.
+
+
+
+What Is ACID Property Of A System?
+
+ACID is a acronym which is commonly used to define the properties of a relational database system, it stand for following terms
+
+
+Atomicity - This property guarantees that if one part of the transaction fails, the entire transaction will fail, and the database state will be left unchanged.
+Consistency - This property ensures that any transaction will bring the database from one valid state to another.
+Isolation - This property ensures that the concurrent execution of transactions results in a system state that would be obtained if transactions were executed serially.
+Durable - means that once a transaction has been committed, it will remain so, even in the event of power loss.
+
+
+What Is BASE Property Of A System?
+
+BASE properties are the common properties of recently evolved NOSQL databases. According to CAP theorem, a BASE system does not guarantee consistency. This is a contrived acronym that is mapped to following property of a system in terms of the CAP theorem
+
+
+Basically available indicates that the system is guaranteed to be available
+Soft stateindicates that the state of the system may change over time, even without input. This is mainly due to the eventually consistent model.
+Eventual consistency indicates that the system will become consistent over time, given that the system doesn't receive input during that time.
+
+
+
+What Do You Mean By Eventual Consistency? What Does Eventually Consistent Mean?
+
+Unlike relational database property of Strict consistency, eventual consistency property of a system ensures that any transaction will eventually (not immediately) bring the database from one valid state to another. 
+
+This means there can be intermediate states that are not consistent between multiple nodes. 
+
+Eventually consistent systems are useful at scenarios where absolute consistency is not critical. For example in case of Twitter status update, if some users of the system do not see the latest status from a particular user its may not be very devastating for system. 
+
+Eventually consistent systems can not be used for use cases where absolute/strict consistency is required. For example a banking transactions system can not be using eventual consistency since it must consistently have the state of a transaction at any point of time. Your account balance should not show different amount if accessed from different ATM machines.
+
+Some reference material for better understanding on eventual consistency
+
+Microsoft Research Whitepaper about Eventual Consistency
+Amazon CTO about Eventual Consistency
+
+
+
+
+
+What Is Shared Nothing Architecture? How Does It Scale?
+
+A shared nothing architecture (SN) is a distributed computing approach in which each node is independent and self-sufficient, and there is no single point of contention required across the system.
+
+
+This means no resources are shared between nodes (No shared memory, No shared file storage)
+The nodes are able to work independently without depending on each other for any work.
+Failure on one node affects only the users of that node, however other nodes continue to work without any disruption.
+This approach is highly scalable since it avoid the existence of single bottleneck in the system. Shared nothing is recently become popular for web development due to its linear scalability. Google has been using it for long time.
+
+In theory, A shared nothing system can scale almost infinitely simply by adding nodes in the form of inexpensive machines.
+
+
+
+How Do You Update A Live Heavy Traffic Site With Minimum Or Zero Down Time?
+
+
+Deploying a newer version of a live website can be a challenging task specially when a website has high traffic. Any downtime is going to affect the users. There are a few best practices that we can follow
+
+Before deploying on Production
+
+
+Thoroughly test the new changes and ensure it working in a test environment which is almost identical to production system.
+If possible do automation of test cases as much as possible. We use selenium for a lot of functional testing.
+Create a automated sanity testing script (also called as smoke test) that can be run on production (without affecting real data). These are typically readonly type of test cases. However depending on your application needs you can add more cases to this. Make sure it can be run quickly by keeping it short.
+Create scripts for all manual tasks(if possible), avoiding any hand typing mistakes during day of deployment.
+Test the script to make sure they work on a non-production environment.
+Keep the build artifacts ready. e.g application deployment files, database scripts, config files etc.
+Create a checklist of things to do on day of deployment.
+Rehearse. Deploy in a non-prod environment is almost identical to production. Try this with production data volumes(if possible). Make a note of time required for your tasks so you can plan accordingly.
+
+
+When doing deploying on a production environment.
+Keep backup of current site/data to be able to rollback.
+Use sanity test cases before doing a lot of in depth testing.
+
+
+I hope you find these questions useful in your software architect profession. What is the questions you would ask if you are interviewing an architect?
+Posted by Sachin FromDev
+LIKE TO SHARE?
+
+
+
+
+
+http://www.geeksforgeeks.org/the-celebrity-problem/
+The Celebrity Problem
+In a party of N people, only one person is known to everyone. Such a person may be present in the party, if yes, (s)he doesn’t know anyone in the party. We can only ask questions like “does A know B? “. Find the stranger (celebrity) in minimum number of questions.
+
+We can describe the problem input as an array of numbers/characters representing persons in the party. We also have a hypothetical function HaveAcquaintance(A, B) which returns true if A knows B, false otherwise. How can we solve the problem.
+
+Recommended: Please solve it on “PRACTICE” first, before moving on to the solution.
+
+We measure the complexity in terms of calls made to HaveAcquaintance().
+
+Method 1 (Graph)
+We can model the solution using graphs. Initialize indegree and outdegree of every vertex as 0. If A knows B, draw a directed edge from A to B, increase indegree of B and outdegree of A by 1. Construct all possible edges of the graph for every possible pair [i, j]. We have NC2 pairs. If celebrity is present in the party, we will have one sink node in the graph with outdegree of zero, and indegree of N-1. We can find the sink node in (N) time, but the overall complexity is O(N2) as we need to construct the graph first.
+
+Method 2 (Recursion)
+We can decompose the problem into combination of smaller instances. Say, if we know celebrity of N-1 persons, can we extend the solution to N? We have two possibilities, Celebrity(N-1) may know N, or N already knew Celebrity(N-1). In the former case, N will be celebrity if N doesn’t know anyone else. In the later case we need to check that Celebrity(N-1) doesn’t know N.
+
+Solve the problem of smaller instance during divide step. On the way back, we find the celebrity (if present) from the smaller instance. During combine stage, check whether the returned celebrity is known to everyone and he doesn’t know anyone. The recurrence of the recursive decomposition is,
+
+T(N) = T(N-1) + O(N)
+
+T(N) = O(N2). You may try writing pseudo code to check your recursion skills.
+
+Method 3 (Using Stack)
+
+The graph construction takes O(N2) time, it is similar to brute force search. In case of recursion, we reduce the problem instance by not more than one, and also combine step may examine M-1 persons (M – instance size).
+We have following observation based on elimination technique (Refer Polya’s How to Solve It book).
+
+If A knows B, then A can’t be celebrity. Discard A, and B may be celebrity.
+If A doesn’t know B, then B can’t be celebrity. Discard B, and A may be celebrity.
+Repeat above two steps till we left with only one person.
+Ensure the remained person is celebrity. (Why do we need this step?)
+We can use stack to verity celebrity.
+
+Push all the celebrities into a stack.
+Pop off top two persons from the stack, discard one person based on return status of HaveAcquaintance(A, B).
+Push the remained person onto stack.
+Repeat step 2 and 3 until only one person remains in the stack.
+Check the remained person in stack doesn’t have acquaintance with anyone else.
+We will discard N elements utmost (Why?). If the celebrity is present in the party, we will call HaveAcquaintance() 3(N-1) times. Here is code using stack.
+
+C++Java
+// Java program to find celebrity using
+// stack data structure
+ 
+import java.util.Stack;
+ 
+public class celebrity 
+{
+    // Person with 2 is celebrity
+    static int MATRIX[][] = { { 0, 0, 1, 0 },
+                              { 0, 0, 1, 0 },
+                              { 0, 0, 0, 0 }, 
+                              { 0, 0, 1, 0 } };
+ 
+    // Returns true if a knows b, false otherwise
+    static boolean knows(int a, int b) 
+    {
+        boolean res = (MATRIX[a][b] == 1) ? true : false;
+        return res;
+    }
+ 
+    // Returns -1 if celebrity is not present.
+    // If present, returns id (value from 0 to n-1).
+    static int findCelebrity(int n) 
+    {
+        Stack<Integer> st = new Stack<>();
+        int c;
+ 
+        // Step 1 :Push everybody onto stack
+        for (int i = 0; i < n; i++) 
+        {
+            st.push(i);
+        }
+ 
+        while (st.size() > 1) 
+        {
+            // Step 2 :Pop off top two persons from the 
+            // stack, discard one person based on return
+            // status of knows(A, B).
+            int a = st.pop();
+            int b = st.pop();
+ 
+            // Step 3 : Push the remained person onto stack.
+            if (knows(a, b)) 
+            {
+                st.push(b);
+            }
+ 
+            else
+                st.push(a);
+        }
+ 
+        c = st.pop();
+ 
+        // Step 5 : Check if the last person is 
+        // celebrity or not
+        for (int i = 0; i < n; i++) 
+        {
+            // If any person doesn't know 'c' or 'a'
+            // doesn't know any person, return -1
+            if (i != c && (knows(c, i) || !knows(i, c)))
+                return -1;
+        }
+        return c;
+    }
+ 
+    // Driver program to test above methods
+    public static void main(String[] args) 
+    {
+        int n = 4;
+        int result = findCelebrity(n);
+        if (result == -1) 
+        {
+            System.out.println("No Celebrity");
+        } 
+        else
+            System.out.println("Celebrity ID " + result);
+    }
+}
+ 
+// This code is contributed by Rishabh Mahrsee
+Run on IDE
+
+Output :
+Celebrity ID 2
+Complexity O(N). Total comparisons 3(N-1). Try the above code for successful MATRIX {{0, 0, 0, 1}, {0, 0, 0, 1}, {0, 0, 0, 1}, {0, 0, 0, 1}}.
+
+Note: You may think that why do we need a new graph as we already have access to input matrix. Note that the matrix MATRIX used to help the hypothetical function HaveAcquaintance(A, B), but never accessed via usual notation MATRIX[i, j]. We have access to the input only through the function HaveAcquiantance(A, B). Matrix is just a way to code the solution. We can assume the cost of hypothetical function as O(1).
+
+If still not clear, assume that the function HaveAcquiantance accessing information stored in a set of linked lists arranged in levels. List node will have next and nextLevel pointers. Every level will have N nodes i.e. an N element list, next points to next node in the current level list and the nextLevel pointer in last node of every list will point to head of next level list. For example the linked list representation of above matrix looks like,
+
+L0 0->0->1->0
+             |
+L1           0->0->1->0
+                       |
+L2                     0->0->1->0
+                                 |
+L3                               0->0->1->0
+The function HaveAcquanintance(i, j) will search in the list for j-th node in the i-th level. Out goal is to minimize calls to HaveAcquanintance function.
+
+
+
+Method 4 (Using two Pointers)
+The idea is to use two pointers, one from start and one from the end. Assume the start person is A, and the end person is B. If A knows B, then A must not be the celebrity. Else, B must not be the celebrity. We will find a celebrity candidate at the end of the loop. Go through each person again and check whether this is the celebrity. Below is C++ implementation.
+C++Java
+// Java program to find celebrity using
+// two pointers
+ 
+public class celebrity 
+{
+    // Person with 2 is celebrity
+    static int MATRIX[][] = { { 0, 0, 1, 0 },
+                              { 0, 0, 1, 0 }, 
+                              { 0, 0, 0, 0 },
+                              { 0, 0, 1, 0 } };
+ 
+    // Returns true if a knows b, false otherwise
+    static boolean knows(int a, int b) 
+    {
+        boolean res = (MATRIX[a][b] == 1) ? true : false;
+        return res;
+    }
+ 
+    // Returns -1 if celebrity is not present.
+    // If present, returns id (value from 0 to n-1).
+    static int findCelebrity(int n) 
+    {
+        // Initialize two pointers as two corners
+        int a = 0;
+        int b = n - 1;
+         
+        // Keep moving while the two pointers
+        // don't become same.
+        while (a < b) 
+        {
+            if (knows(a, b))
+                a++;
+            else
+                b--;
+        }
+ 
+        // Check if a is actually a celebrity or not
+        for (int i = 0; i < n; i++) 
+        {
+            // If any person doesn't know 'a' or 'a'
+            // doesn't know any person, return -1
+            if (i != a && (knows(a, i) || !knows(i, a)))
+                return -1;
+        }
+        return a;
+    }
+ 
+    // Driver program to test above methods
+    public static void main(String[] args) 
+    {
+        int n = 4;
+        int result = findCelebrity(n);
+        if (result == -1) 
+        {
+            System.out.println("No Celebrity");
+        } 
+        else
+            System.out.println("Celebrity ID " + result);
+    }
+}
+ 
+// This code is contributed by Rishabh Mahrsee
+Run on IDE
+
+Output :
+Celebrity ID 2
+Thanks to Sissi Peng for suggesting this method.

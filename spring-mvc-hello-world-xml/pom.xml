@@ -42,6 +42,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>spring-mvc-hello-world</finalName>
+		<finalName>spring-mvc-hello-world-xml</finalName>
 	</build>
 </project>
